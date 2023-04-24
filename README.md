@@ -20,3 +20,7 @@ This application has the function of showing the current weather forecast, with 
 ### ⚙ Used API's
 - [OpenWeatherMap/weather](https://openweathermap.org/current)
 - [OpenWeatherMap/forecast5](https://openweathermap.org/forecast5)
+
+### Installations (using expo)
+- npm install axios
+- npx expo install expo-location
