@@ -37,13 +37,13 @@ export default function ListCards({ data }) {
 
 const styles = StyleSheet.create({
     container: {
-        marginHorizontal: 5,
+        marginHorizontal: 4,
     },
     card: {
         backgroundColor: 'orange',
         alignItems: 'center',
         borderRadius: 6,
-        paddingHorizontal: 10,
+        paddingHorizontal: 12,
     },
     tempText: {
         fontSize: 17,

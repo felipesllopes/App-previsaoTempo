@@ -1,7 +1,8 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import React, { useEffect, useState } from 'react';
-import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { BackHandler, Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import api from '../services/api';
+import apiKey from '../services/apiKey';
 import Cards from './cards';
 import Header from './header';
 import InfoAdc from './infoAdc';
@@ -21,25 +22,28 @@ export default function Home() {
     useEffect(() => {
         (async () => {
 
-            let slocation = await Location.getCurrentPositionAsync({});
-            setLocation(slocation);
+            // const { granted } = await Location.requestForegroundPermissionsAsync();
 
-            let lat = await slocation.coords.latitude;
-            let long = await slocation.coords.longitude;
+            try {
+                const slocation = await Location.getCurrentPositionAsync({})
+                setLocation(slocation);
+                let lat = slocation.coords.latitude;
+                let long = slocation.coords.longitude;
 
-            let key = "453d5754ff46b5aa37422bee730a7f6d"
-            const response = await api.get(`/data/2.5/weather?lat=${lat}&lon=${long}&appid=${key}`)
-            setWeather(response.data);
+                const response = await api.get(`/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apiKey}`)
+                setWeather(response.data);
 
-            const response2 = await api.get(`/data/2.5/forecast?lat=${lat}&lon=${long}&appid=${key}`)
-            setForecast(response2.data);
+                const response2 = await api.get(`/data/2.5/forecast?lat=${lat}&lon=${long}&appid=${apiKey}`)
+                setForecast(response2.data);
+            } catch {
+                BackHandler.exitApp()
+                return;
+            }
+
 
         })();
     }, [minute]);
 
-    /**
-     * Toda vez que o minuto mudar e essa função for acionada, o estado será mudado e o useEffect receberá o novo valor, forçando a atualização do arquivo. A função só funcionará quando o valor real do minuto for diferente do atual. 
-     */
     function reload() {
         setMinute(new Date().getMinutes());
     }
@@ -66,6 +70,7 @@ export default function Home() {
                     <Cards forecast={forecast} atualizar={minute} />
 
                     <InfoAdc weather={weather} atualizar={minute} />
+
                 </View>
             }
 

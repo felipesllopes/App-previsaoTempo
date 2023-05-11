@@ -1,10 +1,11 @@
-import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 import Home from './src/home';
 
 export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <Home />
+      <StatusBar backgroundColor={"#444"} />
     </SafeAreaView>
   );
 }
@@ -15,6 +16,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 22,
   },
 });
