@@ -17,39 +17,45 @@ export default function Home() {
     const [location, setLocation] = useState(null);
     const [weather, setWeather] = useState(null);
     const [forecast, setForecast] = useState(null);
-    const [minute, setMinute] = useState(); // estado para pegar o minuto atual
+    const [minute, setMinute] = useState();
 
     useEffect(() => {
         (async () => {
 
             // const { granted } = await Location.requestForegroundPermissionsAsync();
 
-            try {
-                const slocation = await Location.getCurrentPositionAsync({})
-                setLocation(slocation);
-                let lat = slocation.coords.latitude;
-                let long = slocation.coords.longitude;
+            const slocation = await Location.getCurrentPositionAsync({})
+                .then(async (current) => {
 
-                const response = await api.get(`/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apiKey}`)
-                setWeather(response.data);
+                    setLocation(current);
+                    let lat = current.coords.latitude;
+                    let long = current.coords.longitude;
 
-                const response2 = await api.get(`/data/2.5/forecast?lat=${lat}&lon=${long}&appid=${apiKey}`)
-                setForecast(response2.data);
-            } catch {
-                BackHandler.exitApp()
-                return;
-            }
+                    const response = await api.get(`/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apiKey}`)
+                    setWeather(response.data);
 
+                    const response2 = await api.get(`/data/2.5/forecast?lat=${lat}&lon=${long}&appid=${apiKey}`)
+                    setForecast(response2.data);
+
+                })
+                .catch((err) => {
+                    console.log(err)
+                    BackHandler.exitApp()
+                    return;
+                })
 
         })();
     }, [minute]);
 
+    /**
+     * Toda vez que essa função for chamada, ela pegará o minuto atual e jogará no useeffect, que atualizará todo o programa
+     */
     function reload() {
         setMinute(new Date().getMinutes());
     }
 
     return (
-        <ImageBackground source={require("../img/ceu.jpg")} style={styles.container}>
+        <ImageBackground source={require("../img/wallpaper.jpg")} style={styles.container}>
 
             {location == null || weather == null || forecast == null ?
                 <View style={styles.loadingContainer}>

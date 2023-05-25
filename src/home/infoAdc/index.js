@@ -3,11 +3,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { useEffect } from "react";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 
-/**
- * Função que contém as informações adicionais da previsão, com vento, umidade, temperatura máxima e mínima
- * @param {weather, atualizar} param0 
- * @returns 
- */
+
 export default function InfoAdc({ weather, atualizar }) {
 
     useEffect(() => {
