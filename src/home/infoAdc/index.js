@@ -1,8 +1,7 @@
 import Feather from '@expo/vector-icons/Feather';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useEffect } from "react";
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
-
+import { StyleSheet, Text, View } from "react-native";
 
 export default function InfoAdc({ weather, atualizar }) {
 
@@ -10,19 +9,17 @@ export default function InfoAdc({ weather, atualizar }) {
     }, [atualizar])
 
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
 
-            {weather &&
-                <View style={styles.containerInfo}>
-                    <Text style={styles.infoTitle}>Informações Adicionais</Text>
-                    <Text style={styles.info}>Vento <Feather name="wind" size={20} color="black" /> {weather.wind.speed} km/h</Text>
-                    <Text style={styles.info}>Umidade <Ionicons name="water" size={20} color="black" /> {weather.main.humidity}%</Text>
-                    <Text style={styles.info}>Temp máx <Ionicons name="arrow-up" size={20} color="black" /> {parseInt(weather.main.temp_max - 273.15)} ºC</Text>
-                    <Text style={styles.info}>Temp mín <Ionicons name="arrow-down" size={20} color="black" /> {parseInt(weather.main.temp_min - 273.15)} ºC</Text>
-                </View>
-            }
+            <View style={styles.containerInfo}>
+                <Text style={styles.infoTitle}>Informações Adicionais</Text>
+                <Text style={styles.info}>Vento <Feather name="wind" size={20} color="black" /> {weather.wind.speed} km/h</Text>
+                <Text style={styles.info}>Umidade <Ionicons name="water" size={20} color="black" /> {weather.main.humidity}%</Text>
+                <Text style={styles.info}>Temp máx <Ionicons name="arrow-up" size={20} color="black" /> {parseInt(weather.main.temp_max - 273.15)} ºC</Text>
+                <Text style={styles.info}>Temp mín <Ionicons name="arrow-down" size={20} color="black" /> {parseInt(weather.main.temp_min - 273.15)} ºC</Text>
+            </View>
 
-        </SafeAreaView>
+        </View>
     )
 }
 
@@ -33,18 +30,18 @@ const styles = StyleSheet.create({
     },
     containerInfo: {
         alignItems: 'center',
-        backgroundColor: '#CCC',
+        backgroundColor: 'rgba(300,300,300, 0.7)',
         paddingHorizontal: 18,
-        paddingBottom: 20,
+        padding: 10,
         borderRadius: 7,
-        width: '80%',
+        elevation: 5,
     },
     infoTitle: {
-        fontSize: 22,
+        fontSize: 20,
         fontWeight: 'bold',
-        marginVertical: 6,
+        marginBottom: 10
     },
     info: {
-        fontSize: 18,
+        fontSize: 17,
     },
 })
