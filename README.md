@@ -6,6 +6,13 @@ This application has the function of showing the current weather forecast, with 
 
 ![image-projeto - Copia](https://user-images.githubusercontent.com/99768939/231847834-38ff7d38-72f0-40a9-ad1b-379aaf9abc98.jpg)
 
+
+### Updates to be made:
+
+- Automate time and update.
+- Increase performance.
+
+
 ### Technologies used:
 
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
