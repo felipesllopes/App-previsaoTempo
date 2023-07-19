@@ -1,10 +1,12 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { ListIcons } from '../../Components/ListIcons';
 
 export default function ListCards({ data }) {
 
+    const navigation = useNavigation();
     const [icon, setIcon] = useState();
 
     let dia = data.dt_txt.substring(8, 10);
@@ -18,8 +20,8 @@ export default function ListCards({ data }) {
         setIcon(ListIcons(data)); // retornará a imagem do icone
     }, [])
 
-    function icones() {
-        console.log(data.weather[0].icon)
+    function handleNavigation() {
+        navigation.navigate('InfoCards')
     }
 
     return (
@@ -43,8 +45,8 @@ export default function ListCards({ data }) {
                 <Text style={styles.tempText}>{tempMin} ºC</Text>
             </View>
 
-            <TouchableOpacity onPress={icones}>
-                <Text style={{ textDecorationLine: 'underline' }}>Mais info.</Text>
+            <TouchableOpacity onPress={handleNavigation}>
+                <Text style={styles.infoAdc}>Mais info.</Text>
             </TouchableOpacity>
 
         </View>
@@ -63,14 +65,18 @@ const styles = StyleSheet.create({
         marginVertical: 6,
     },
     date: {
-        marginBottom: 5,
         alignItems: 'center'
     },
     box: {
         flexDirection: 'row',
-        marginBottom: 5
+        marginBottom: 1,
     },
     tempText: {
         fontSize: 16,
-    }
+    },
+    infoAdc: {
+        textDecorationLine: 'underline',
+        fontWeight: 'bold',
+        paddingVertical: 3,
+    },
 })

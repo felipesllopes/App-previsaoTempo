@@ -1,7 +1,7 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import * as Location from 'expo-location';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Loading from '../Components/Loading';
 import api from '../services/api';
 import apiKey from '../services/apiKey';
@@ -13,12 +13,13 @@ export default function Home() {
 
     const [weather, setWeather] = useState(null);
     const [forecast, setForecast] = useState(null);
-    const [minute, setMinute] = useState();
     const [loading, setLoading] = useState(false);
+    const [reload, setReload] = useState(false);
 
     useEffect(() => {
         requestLocationPermission();
-    }, [minute])
+        console.log("Chamou")
+    }, [reload])
 
     async function requestLocationPermission() {
         let { status } = await Location.requestForegroundPermissionsAsync();
@@ -38,7 +39,7 @@ export default function Home() {
                 let lat = location.coords.latitude;
                 let long = location.coords.longitude;
 
-                const response = await api.get(`/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apiKey}`)
+                const response = await api.get(`/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apiKey}&lang=pt_br`)
                 setWeather(response.data);
 
                 const response2 = await api.get(`/data/2.5/forecast?lat=${lat}&lon=${long}&appid=${apiKey}`)
@@ -53,12 +54,10 @@ export default function Home() {
         }
     };
 
-    /**
-     * Toda vez que essa função for chamada, ela pegará o minuto atual e jogará no useeffect, que atualizará todo o programa
-     */
-    function reload() {
+
+    function reloading() {
         setLoading(true)
-        setMinute(new Date().getMinutes());
+        setReload(current => (current === true ? false : true));
     }
 
     return (
@@ -69,9 +68,9 @@ export default function Home() {
                 :
                 <View style={{ flex: 1 }}>
 
-                    <Header weather={weather} atualizar={minute} />
+                    <Header weather={weather} reload={reload} />
 
-                    <TouchableOpacity activeOpacity={0.7} style={styles.updateButton} onPress={reload}>
+                    <TouchableOpacity activeOpacity={0.7} style={styles.updateButton} onPress={reloading}>
                         {loading ?
                             <ActivityIndicator size={26} color={'black'} />
                             :
@@ -82,9 +81,9 @@ export default function Home() {
                         }
                     </TouchableOpacity>
 
-                    <Cards forecast={forecast} atualizar={minute} />
+                    <Cards forecast={forecast} reload={reload} />
 
-                    <InfoAdc weather={weather} atualizar={minute} />
+                    <InfoAdc weather={weather} reload={reload} />
 
                 </View>
             }
@@ -106,10 +105,10 @@ const styles = StyleSheet.create({
     updateButton: {
         backgroundColor: '#EEE',
         alignSelf: 'center',
-        marginTop: 25,
+        marginTop: 20,
         padding: 3,
         paddingHorizontal: 5,
-        marginBottom: 35,
+        marginBottom: 20,
         borderRadius: 3,
         width: 120,
         alignItems: 'center',

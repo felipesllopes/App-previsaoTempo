@@ -1,12 +1,13 @@
-import { SafeAreaView, StatusBar, StyleSheet } from 'react-native';
-import Home from './src/home';
+import { NavigationContainer } from '@react-navigation/native';
+import { StatusBar, StyleSheet } from 'react-native';
+import Routes from './src/Routes';
 
 export default function App() {
   return (
-    <SafeAreaView style={styles.container}>
-      <Home />
+    <NavigationContainer style={styles.container}>
+      <Routes />
       <StatusBar backgroundColor={"#444"} />
-    </SafeAreaView>
+    </NavigationContainer>
   );
 }
 

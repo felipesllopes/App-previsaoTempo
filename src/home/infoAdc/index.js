@@ -1,12 +1,19 @@
 import Feather from '@expo/vector-icons/Feather';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useNavigation } from '@react-navigation/native';
 
-export default function InfoAdc({ weather, atualizar }) {
+export default function InfoAdc({ weather, atualizar: reload }) {
+
+    const navigation = useNavigation();
 
     useEffect(() => {
-    }, [atualizar])
+    }, [reload])
+
+    function handleNavigation() {
+        navigation.navigate('InfoAdc', { data: weather })
+    }
 
     return (
         <View style={styles.container}>
@@ -17,6 +24,10 @@ export default function InfoAdc({ weather, atualizar }) {
                 <Text style={styles.info}>Umidade <Ionicons name="water" size={20} color="black" /> {weather.main.humidity}%</Text>
                 <Text style={styles.info}>Temp máx <Ionicons name="arrow-up" size={20} color="black" /> {parseInt(weather.main.temp_max - 273.15)} ºC</Text>
                 <Text style={styles.info}>Temp mín <Ionicons name="arrow-down" size={20} color="black" /> {parseInt(weather.main.temp_min - 273.15)} ºC</Text>
+
+                <TouchableOpacity onPress={handleNavigation}>
+                    <Text style={styles.infoAdc}>Informações adicionais</Text>
+                </TouchableOpacity>
             </View>
 
         </View>
@@ -44,4 +55,10 @@ const styles = StyleSheet.create({
     info: {
         fontSize: 17,
     },
+    infoAdc: {
+        textDecorationLine: 'underline',
+        fontWeight: 'bold',
+        fontSize: 17,
+        marginTop: 5,
+    }
 })

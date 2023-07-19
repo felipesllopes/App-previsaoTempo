@@ -2,10 +2,10 @@ import { useEffect } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import ListCards from "./listCard";
 
-export default function Cards({ forecast, minute }) {
+export default function Cards({ forecast, minute: reload }) {
 
     useEffect(() => {
-    }, [minute])
+    }, [reload])
 
     function renderItem({ item }) {
         return (<ListCards data={item} />)
@@ -32,6 +32,6 @@ const styles = StyleSheet.create({
     },
     flatlist: {
         marginHorizontal: 20,
-        marginBottom: 35,
+        marginBottom: 20,
     },
 })

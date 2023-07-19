@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { ListIcons } from '../../Components/ListIcons';
 
-export default function Header({ weather, atualizar }) {
+export default function Header({ weather, atualizar: reload }) {
 
     const [salutation, setSalutation] = useState(); // estado irá receber a mensagem de acordo com a hora do dia
     const [icon, setIcon] = useState(); // retornará a imagem do icone
@@ -18,7 +18,7 @@ export default function Header({ weather, atualizar }) {
     useEffect(() => {
         greetingMessage();
         setIcon(ListIcons(weather));
-    }, [atualizar])
+    }, [reload])
 
     let longWeekDay = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"]
     let longMonth = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"]
