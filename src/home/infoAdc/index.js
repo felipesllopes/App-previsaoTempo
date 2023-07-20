@@ -25,7 +25,7 @@ export default function InfoAdc({ weather, atualizar: reload }) {
                 <Text style={styles.info}>Temp mín <Ionicons name="arrow-down" size={20} color="black" /> {parseInt(weather.main.temp_min - 273.15)} ºC</Text>
 
                 <TouchableOpacity onPress={handleNavigation}>
-                    <Text style={styles.infoAdc}>Informações adicionais</Text>
+                    <Text style={styles.infoAdc}>Mais informações</Text>
                 </TouchableOpacity>
             </View>
 
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     },
     containerInfo: {
         alignItems: 'center',
-        backgroundColor: 'rgba(300,300,300, 0.7)',
+        backgroundColor: 'rgba(300,300,300, 0.8)',
         paddingHorizontal: 18,
         padding: 10,
         borderRadius: 7,

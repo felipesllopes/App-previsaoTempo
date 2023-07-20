@@ -2,13 +2,13 @@ import { useEffect } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import ListCards from "./listCard";
 
-export default function Cards({ forecast, minute: reload }) {
+export default function Cards({ forecast, reload }) {
 
     useEffect(() => {
     }, [reload])
 
     function renderItem({ item }) {
-        return (<ListCards data={item} />)
+        return (<ListCards data={item} forecast={forecast} />)
     }
 
     return (

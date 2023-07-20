@@ -4,14 +4,14 @@ import { useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { ListIcons } from '../../Components/ListIcons';
 
-export default function ListCards({ data }) {
+export default function ListCards({ data, forecast }) {
 
     const navigation = useNavigation();
     const [icon, setIcon] = useState();
 
-    let dia = data.dt_txt.substring(8, 10);
-    let mes = data.dt_txt.substring(5, 7);
-    let hora = data.dt_txt.substring(11, 13);
+    let day = data.dt_txt.substring(8, 10);
+    let month = data.dt_txt.substring(5, 7);
+    let hour = data.dt_txt.substring(11, 13);
     let temp = parseInt(data.main.temp - 273.15);
     let tempMax = parseInt(data.main.temp_max - 273.15);
     let tempMin = parseInt(data.main.temp_min - 273.15);
@@ -21,15 +21,15 @@ export default function ListCards({ data }) {
     }, [])
 
     function handleNavigation() {
-        navigation.navigate('InfoCards')
+        navigation.navigate('InfoCards', { forecast: forecast })
     }
 
     return (
         <View style={styles.container}>
 
             <View style={styles.date}>
-                <Text style={[styles.tempText, { fontWeight: 'bold', fontSize: 15 }]}>{dia}/{mes}</Text>
-                <Text style={[styles.tempText, { fontWeight: 'bold', fontSize: 15 }]}>{hora}h</Text>
+                <Text style={[styles.tempText, { fontWeight: 'bold', fontSize: 15 }]}>{day}/{month}</Text>
+                <Text style={[styles.tempText, { fontWeight: 'bold', fontSize: 15 }]}>{hour}h</Text>
             </View>
 
             <Text style={styles.tempText}>{temp} ºC</Text>
@@ -55,7 +55,7 @@ export default function ListCards({ data }) {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'rgba(180,180,180, 0.6)',
+        backgroundColor: 'rgba(190,190,190, 0.7)',
         alignItems: 'center',
         borderRadius: 6,
         padding: 4,

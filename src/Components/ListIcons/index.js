@@ -1,3 +1,5 @@
+// https://openweathermap.org/weather-conditions link dos icones
+
 export function ListIcons(service) {
 
     let icon = service.weather[0].icon;

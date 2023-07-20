@@ -28,7 +28,7 @@ export default function InfoAdc() {
     }, [])
 
     return (
-        <View style={[styles.container, { backgroundColor: hours > 6 && hours < 18 ? '#00BFFF' : '#000080' }]}>
+        <View style={[styles.container, { backgroundColor: hours >= 6 && hours < 18 ? '#00BFFF' : '#000080' }]}>
 
             <BackStack />
 
@@ -41,19 +41,19 @@ export default function InfoAdc() {
                 <Image source={icon} style={styles.imgIcon} />
             </View>
 
-            <View style={styles.body}>
+            <View style={[styles.body, { backgroundColor: hours >= 6 && hours < 18 ? '#87CEEB' : '#6959CD' }]}>
                 <View style={styles.boxTemp}>
-                    <View style={styles.boxTemp2}>
-                        <Text style={styles.temp}>{parseInt(temp - 273.15)}ºC<Ionicons name="thermometer-outline" size={30} color={'#FFF'} />
-                        </Text>
-                        <Text style={styles.description}>{description}</Text>
-                    </View>
+                    <Text style={styles.temp}>{parseInt(temp - 273.15)}ºC<Ionicons name="thermometer-outline" size={30} color={'#FFF'} />
+                    </Text>
 
                     <View style={styles.viewTemp}>
                         <Text style={styles.tempAdc}>{parseInt(temp_max - 273.15)}</Text>
                         <Text style={styles.tempAdc}>/{parseInt(temp_min - 273.15)}ºC</Text>
                     </View>
                 </View>
+                <View style={styles.line} />
+
+                <Text style={styles.description}>{description}</Text>
 
                 <View style={styles.box}>
                     <Text style={styles.text}>Humidade <Ionicons name="water" size={25} color={'#FFF'} /></Text>
@@ -95,7 +95,6 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     header: {
-        // backgroundColor: 'rgba(300,300,300, 0.1)',
         borderRadius: 20,
         padding: 10,
     },
@@ -112,24 +111,20 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     body: {
-        backgroundColor: 'rgba(100,100,100, 0.3)',
         borderRadius: 20,
         padding: 10,
-        marginTop: 20
+        marginTop: 20,
+        paddingBottom: 25
     },
     imgIcon: {
-        height: 180,
-        width: 180,
+        height: 200,
+        width: 200,
         alignSelf: 'center',
     },
     boxTemp: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-around',
-    },
-    boxTemp2: {
-        flexDirection: 'row',
-        alignItems: 'baseline',
+        justifyContent: 'space-between',
     },
     temp: {
         fontSize: 33,
@@ -137,12 +132,16 @@ const styles = StyleSheet.create({
         color: '#FFF',
         fontWeight: 'bold',
     },
+    line: {
+        backgroundColor: 'white',
+        height: 2
+    },
     description: {
         fontSize: 17,
         fontStyle: 'italic',
-        marginRight: 40,
         color: '#FFF',
         fontWeight: 'bold',
+        marginBottom: 15,
     },
     viewTemp: {
         flexDirection: 'row',
