@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { ListIcons } from '../../Components/ListIcons';
 
-export default function Header({ weather, atualizar: reload }) {
+export default function Header({ weather, reload }) {
 
     const [salutation, setSalutation] = useState(); // estado irá receber a mensagem de acordo com a hora do dia
     const [icon, setIcon] = useState(); // retornará a imagem do icone

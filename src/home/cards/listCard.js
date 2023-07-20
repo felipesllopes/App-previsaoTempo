@@ -55,7 +55,7 @@ export default function ListCards({ data }) {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'rgba(255,165,0, 0.9)',
+        backgroundColor: 'rgba(180,180,180, 0.6)',
         alignItems: 'center',
         borderRadius: 6,
         padding: 4,

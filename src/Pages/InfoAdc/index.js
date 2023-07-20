@@ -2,12 +2,14 @@ import { Feather, Ionicons, } from '@expo/vector-icons';
 import { useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
+import BackStack from '../../Components/BackStack';
 import { ListIcons } from "../../Components/ListIcons";
 
 export default function InfoAdc() {
 
     const route = useRoute();
     const [icon, setIcon] = useState();
+    let hours = new Date().getHours();
 
     let humidity = route.params?.data.main.humidity;
     let pressure = route.params?.data.main.pressure;
@@ -22,16 +24,18 @@ export default function InfoAdc() {
     let temp_min = route.params?.data.main.temp_min;
 
     useEffect(() => {
-        setIcon(ListIcons(route.params?.data))
+        setIcon(ListIcons(route.params?.data));
     }, [])
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: hours > 6 && hours < 18 ? '#00BFFF' : '#000080' }]}>
+
+            <BackStack />
 
             <View style={styles.header}>
                 <View style={styles.viewLocation}>
                     <Text style={styles.location}>{locationCountry}, {location}</Text>
-                    <Ionicons name="location" size={30} color={'#FF0000'} />
+                    <Ionicons name="location" size={30} color={'#FFF'} />
                 </View>
 
                 <Image source={icon} style={styles.imgIcon} />
@@ -40,7 +44,7 @@ export default function InfoAdc() {
             <View style={styles.body}>
                 <View style={styles.boxTemp}>
                     <View style={styles.boxTemp2}>
-                        <Text style={styles.temp}>{parseInt(temp - 273.15)}ºC<Ionicons name="thermometer-outline" size={30} color={'#000'} />
+                        <Text style={styles.temp}>{parseInt(temp - 273.15)}ºC<Ionicons name="thermometer-outline" size={30} color={'#FFF'} />
                         </Text>
                         <Text style={styles.description}>{description}</Text>
                     </View>
@@ -52,31 +56,31 @@ export default function InfoAdc() {
                 </View>
 
                 <View style={styles.box}>
-                    <Text style={styles.text}>Humidade <Ionicons name="water" size={25} color={'#000'} /></Text>
+                    <Text style={styles.text}>Humidade <Ionicons name="water" size={25} color={'#FFF'} /></Text>
                     <Text style={styles.text}>{humidity}%</Text>
                 </View>
 
                 <View style={styles.box}>
-                    <Text style={styles.text}>Vel vento <Feather name="wind" size={25} color={'#000'} /></Text>
+                    <Text style={styles.text}>Vel vento <Feather name="wind" size={25} color={'#FFF'} /></Text>
                     <Text style={styles.text}>{speed} km/h</Text>
                 </View>
 
                 <View style={styles.box}>
-                    <Text style={styles.text}>Pressão atmosférica <Ionicons name="md-chevron-down-sharp" size={25} color={'#000'} /></Text>
+                    <Text style={styles.text}>Pressão atm <Ionicons name="md-chevron-down-sharp" size={25} color={'#FFF'} /></Text>
                     <Text style={styles.text}>{pressure} hPa</Text>
                 </View>
 
                 <View style={styles.box}>
                     <Text style={styles.text}>Dir vento <Feather
                         name={deg === 0 ? 'arrow-up' : deg > 0 && deg < 90 ? 'arrow-up-right' : deg === 90 ? 'arrow-right' : deg > 90 && deg < 180 ? 'arrow-down-right' : deg === 180 ? 'arrow-down' : deg > 180 && deg < 270 ? 'arrow-down-left' : deg === 270 ? 'arrow-left' : 'arrow-up-left'}
-                        size={25} color={'#000'}
+                        size={25} color={'#FFF'}
                     /></Text>
                     <Text style={styles.text}>{deg}º</Text>
                 </View>
 
 
                 <View style={styles.box}>
-                    <Text style={styles.text}>Visibilidade <Feather name="eye" size={25} color={'#000'} /></Text>
+                    <Text style={styles.text}>Visibilidade <Feather name="eye" size={25} color={'#FFF'} /></Text>
                     <Text style={styles.text}>{visibility / 1000} km</Text>
                 </View>
             </View>
@@ -88,11 +92,10 @@ export default function InfoAdc() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#808080',
         padding: 10,
     },
     header: {
-        backgroundColor: 'rgba(200,200,200, 0.9)',
+        // backgroundColor: 'rgba(300,300,300, 0.1)',
         borderRadius: 20,
         padding: 10,
     },
@@ -105,9 +108,11 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         marginRight: 5,
+        color: '#FFF',
+        fontWeight: 'bold',
     },
     body: {
-        backgroundColor: '#AAA',
+        backgroundColor: 'rgba(100,100,100, 0.3)',
         borderRadius: 20,
         padding: 10,
         marginTop: 20
@@ -129,11 +134,15 @@ const styles = StyleSheet.create({
     temp: {
         fontSize: 33,
         fontWeight: 'bold',
+        color: '#FFF',
+        fontWeight: 'bold',
     },
     description: {
         fontSize: 17,
         fontStyle: 'italic',
         marginRight: 40,
+        color: '#FFF',
+        fontWeight: 'bold',
     },
     viewTemp: {
         flexDirection: 'row',
@@ -141,10 +150,14 @@ const styles = StyleSheet.create({
     tempAdc: {
         fontSize: 20,
         fontStyle: 'italic',
+        color: '#FFF',
+        fontWeight: 'bold',
     },
     text: {
         fontSize: 17,
         marginVertical: 3,
+        color: '#FFF',
+        fontWeight: 'bold',
     },
     box: {
         flexDirection: 'row',

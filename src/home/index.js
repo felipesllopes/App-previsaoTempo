@@ -8,6 +8,7 @@ import apiKey from '../services/apiKey';
 import Cards from './cards';
 import Header from './header';
 import InfoAdc from './infoAdc';
+import { ImageBackground } from 'react-native';
 
 export default function Home() {
 
@@ -66,7 +67,7 @@ export default function Home() {
             {!forecast ?
                 <Loading />
                 :
-                <View style={{ flex: 1 }}>
+                <ImageBackground source={require('../img/wallpaper.jpg')} style={{ flex: 1 }}>
 
                     <Header weather={weather} reload={reload} />
 
@@ -85,7 +86,7 @@ export default function Home() {
 
                     <InfoAdc weather={weather} reload={reload} />
 
-                </View>
+                </ImageBackground>
             }
 
         </View>

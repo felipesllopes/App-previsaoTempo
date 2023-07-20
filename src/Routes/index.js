@@ -16,9 +16,12 @@ export default function Routes() {
             />
 
             <Stack.Screen name='InfoAdc' component={InfoAdc}
-                options={{ title: 'Informações Adicionais' }} />
+                options={{ headerShown: false }}
+            />
 
-            <Stack.Screen name='InfoCards' component={InfoCards} />
+            <Stack.Screen name='InfoCards' component={InfoCards}
+                options={{ headerShown: false }}
+            />
 
         </Stack.Navigator>
 
