@@ -1,26 +1,24 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import * as Location from 'expo-location';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Loading from '../Components/Loading';
 import api from '../services/api';
 import apiKey from '../services/apiKey';
 import Cards from './cards';
 import Header from './header';
 import InfoAdc from './infoAdc';
-import { ImageBackground } from 'react-native';
 
 export default function Home() {
 
     const [weather, setWeather] = useState(null);
     const [forecast, setForecast] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [reload, setReload] = useState(false);
+    const [currentMinutes, setCurrentMinutes] = useState(new Date().getMinutes());
 
     useEffect(() => {
         requestLocationPermission();
-        console.log("Chamou")
-    }, [reload])
+    }, [currentMinutes])
 
     async function requestLocationPermission() {
         let { status } = await Location.requestForegroundPermissionsAsync();
@@ -35,7 +33,6 @@ export default function Home() {
         try {
             let location = await Location.getCurrentPositionAsync({});
             if (location) {
-                setLoading(false);
 
                 let lat = location.coords.latitude;
                 let long = location.coords.longitude;
@@ -43,7 +40,7 @@ export default function Home() {
                 const response = await api.get(`/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apiKey}&lang=pt_br`)
                 setWeather(response.data);
 
-                const response2 = await api.get(`/data/2.5/forecast?lat=${lat}&lon=${long}&appid=${apiKey}`)
+                const response2 = await api.get(`/data/2.5/forecast?lat=${lat}&lon=${long}&appid=${apiKey}&lang=pt_br`)
                 setForecast(response2.data);
 
             } else {
@@ -55,10 +52,20 @@ export default function Home() {
         }
     };
 
+    function updateTime() {
+        setCurrentMinutes(new Date().getMinutes());
+    }
+
+    useState(() => {
+        const interval = setInterval(updateTime, 1000);
+        return () => clearInterval(interval);
+    }, [])
+
 
     function reloading() {
         setLoading(true)
-        setReload(current => (current === true ? false : true));
+        updateTime()
+        setLoading(false)
     }
 
     return (
@@ -69,7 +76,7 @@ export default function Home() {
                 :
                 <ImageBackground source={require('../img/wallpaper.jpg')} style={{ flex: 1 }}>
 
-                    <Header weather={weather} reload={reload} />
+                    <Header weather={weather} reload={currentMinutes} />
 
                     <TouchableOpacity activeOpacity={0.7} style={styles.updateButton} onPress={reloading}>
                         {loading ?
@@ -82,9 +89,9 @@ export default function Home() {
                         }
                     </TouchableOpacity>
 
-                    <Cards forecast={forecast} reload={reload} />
+                    <Cards forecast={forecast} reload={currentMinutes} />
 
-                    <InfoAdc weather={weather} reload={reload} />
+                    <InfoAdc weather={weather} reload={currentMinutes} />
 
                 </ImageBackground>
             }

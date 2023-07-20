@@ -4,7 +4,6 @@ import { ListIcons } from '../../Components/ListIcons';
 
 export default function Header({ weather, reload }) {
 
-    const [salutation, setSalutation] = useState(); // estado irá receber a mensagem de acordo com a hora do dia
     const [icon, setIcon] = useState(); // retornará a imagem do icone
 
     let date = new Date();
@@ -15,32 +14,18 @@ export default function Header({ weather, reload }) {
     let hours = date.getHours();
     let min = date.getMinutes();
 
-    useEffect(() => {
-        greetingMessage();
-        setIcon(ListIcons(weather));
-    }, [reload])
-
     let longWeekDay = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"]
     let longMonth = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"]
 
     let longDay = `${longWeekDay[dayWeek]}, ${day} de ${longMonth[month]} de ${year}, ${hours}:${min < 10 ? "0" + min : min}`;
 
-    function greetingMessage() {
-        if (hours == 0 || hours < 6) {
-            setSalutation(`Boa madrugada!`);
-        } else if (hours == 6 || hours < 12) {
-            setSalutation(`Bom dia!`);
-        } else if (hours == 12 || hours < 18) {
-            setSalutation(`Boa tarde!`);
-        } else {
-            setSalutation(`Boa noite!`);
-        }
-    }
+    useEffect(() => {
+        setIcon(ListIcons(weather));
+    }, [reload])
 
     return (
         <View style={styles.container}>
 
-            <Text style={[styles.text, { fontSize: 19 }]}>{salutation}</Text>
             <Text style={styles.temp}>{parseInt(weather.main.temp - 273.15)}ºC</Text>
             <Image source={icon} style={styles.icon} />
             <Text style={styles.text}>{weather.sys.country}, {weather.name}</Text>
@@ -67,5 +52,6 @@ const styles = StyleSheet.create({
     icon: {
         height: 70,
         width: 70,
+        margin: 10,
     },
 })

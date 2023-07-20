@@ -1,15 +1,17 @@
 import { Feather, Ionicons, } from '@expo/vector-icons';
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
-import BackStack from '../../Components/BackStack';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { ListIcons } from "../../Components/ListIcons";
 
 export default function InfoAdc() {
 
+    const navigation = useNavigation();
     const route = useRoute();
+
     const [icon, setIcon] = useState();
-    let hours = new Date().getHours();
+    const [temaDark, setTemaDark] = useState(false);
+    const [color, setColor] = useState('white');
 
     let humidity = route.params?.data.main.humidity;
     let pressure = route.params?.data.main.pressure;
@@ -23,65 +25,83 @@ export default function InfoAdc() {
     let temp_max = route.params?.data.main.temp_max;
     let temp_min = route.params?.data.main.temp_min;
 
+    function handleTema() {
+        setTemaDark(current => (current === true ? false : true))
+        setColor(current => (current === 'white' ? 'black' : 'white'))
+    }
+
     useEffect(() => {
         setIcon(ListIcons(route.params?.data));
     }, [])
 
     return (
-        <View style={[styles.container, { backgroundColor: hours >= 6 && hours < 18 ? '#00BFFF' : '#000080' }]}>
+        <View style={[styles.container, { backgroundColor: temaDark ? '#000080' : '#00BFFF' }]}>
 
-            <BackStack />
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+                <Feather name="arrow-left" size={30} color={'#FFF'} />
+            </TouchableOpacity>
 
-            <View style={styles.header}>
+            <TouchableOpacity style={styles.buttonTema} onPress={handleTema}>
+                <Ionicons name={temaDark ? 'moon' : 'sunny'} size={30} color={temaDark ? '#FFF' : '#000'} />
+            </TouchableOpacity>
+
+            {route.params?.data.dt_txt ?
+                <View>
+                    <Text style={styles.date}>
+                        {route.params?.data.dt_txt.substring(8, 10)}
+                        /{route.params?.data.dt_txt.substring(5, 7)} { }
+                        - {route.params?.data.dt_txt.substring(11, 13)}h
+                    </Text>
+                </View>
+                :
                 <View style={styles.viewLocation}>
                     <Text style={styles.location}>{locationCountry}, {location}</Text>
                     <Ionicons name="location" size={30} color={'#FFF'} />
                 </View>
+            }
 
-                <Image source={icon} style={styles.imgIcon} />
-            </View>
+            <Image source={icon} style={styles.imgIcon} />
 
-            <View style={[styles.body, { backgroundColor: hours >= 6 && hours < 18 ? '#87CEEB' : '#6959CD' }]}>
+            <View style={styles.body}>
                 <View style={styles.boxTemp}>
-                    <Text style={styles.temp}>{parseInt(temp - 273.15)}ºC<Ionicons name="thermometer-outline" size={30} color={'#FFF'} />
+                    <Text style={[styles.temp, { color: color }]}>{parseInt(temp - 273.15)}ºC<Ionicons name="thermometer-outline" size={27} color={color} />
                     </Text>
 
                     <View style={styles.viewTemp}>
-                        <Text style={styles.tempAdc}>{parseInt(temp_max - 273.15)}</Text>
-                        <Text style={styles.tempAdc}>/{parseInt(temp_min - 273.15)}ºC</Text>
+                        <Text style={[styles.tempAdc, { color: color }]}>{parseInt(temp_max - 273.15)}</Text>
+                        <Text style={[styles.tempAdc, { color: color }]}>/{parseInt(temp_min - 273.15)}ºC</Text>
                     </View>
                 </View>
-                <View style={styles.line} />
+                <View style={{ height: 2, backgroundColor: color }} />
 
-                <Text style={styles.description}>{description}</Text>
+                <Text style={[styles.description, { color: color }]}>{description}</Text>
 
                 <View style={styles.box}>
-                    <Text style={styles.text}>Humidade <Ionicons name="water" size={25} color={'#FFF'} /></Text>
-                    <Text style={styles.text}>{humidity}%</Text>
+                    <Text style={[styles.text, { color: color }]}>Humidade <Ionicons name="water" size={25} color={color} /></Text>
+                    <Text style={[styles.text, { color: color }]}>{humidity}%</Text>
                 </View>
 
                 <View style={styles.box}>
-                    <Text style={styles.text}>Vel vento <Feather name="wind" size={25} color={'#FFF'} /></Text>
-                    <Text style={styles.text}>{speed} km/h</Text>
+                    <Text style={[styles.text, { color: color }]}>Vel vento <Feather name="wind" size={25} color={color} /></Text>
+                    <Text style={[styles.text, { color: color }]}>{speed} km/h</Text>
                 </View>
 
                 <View style={styles.box}>
-                    <Text style={styles.text}>Pressão atm <Ionicons name="md-chevron-down-sharp" size={25} color={'#FFF'} /></Text>
-                    <Text style={styles.text}>{pressure} hPa</Text>
+                    <Text style={[styles.text, { color: color }]}>Pressão atm <Ionicons name="md-chevron-down-sharp" size={25} color={color} /></Text>
+                    <Text style={[styles.text, { color: color }]}>{pressure} hPa</Text>
                 </View>
 
                 <View style={styles.box}>
-                    <Text style={styles.text}>Dir vento <Feather
+                    <Text style={[styles.text, { color: color }]}>Dir vento <Feather
                         name={deg === 0 ? 'arrow-up' : deg > 0 && deg < 90 ? 'arrow-up-right' : deg === 90 ? 'arrow-right' : deg > 90 && deg < 180 ? 'arrow-down-right' : deg === 180 ? 'arrow-down' : deg > 180 && deg < 270 ? 'arrow-down-left' : deg === 270 ? 'arrow-left' : 'arrow-up-left'}
-                        size={25} color={'#FFF'}
+                        size={25} color={color}
                     /></Text>
-                    <Text style={styles.text}>{deg}º</Text>
+                    <Text style={[styles.text, { color: color }]}>{deg}º</Text>
                 </View>
 
-
                 <View style={styles.box}>
-                    <Text style={styles.text}>Visibilidade <Feather name="eye" size={25} color={'#FFF'} /></Text>
-                    <Text style={styles.text}>{visibility / 1000} km</Text>
+                    <Text style={[styles.text, { color: color }]}>Visibilidade <Feather name="eye" size={25} color={color} /></Text>
+                    <Text style={[styles.text, { color: color }]}>{visibility / 1000} km</Text>
                 </View>
             </View>
 
@@ -94,9 +114,18 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 10,
     },
-    header: {
-        borderRadius: 20,
-        padding: 10,
+    buttonTema: {
+        position: 'absolute',
+        right: 0,
+        margin: 10,
+    },
+    date: {
+        textAlign: 'center',
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginRight: 5,
+        color: '#FFF',
+        fontWeight: 'bold',
     },
     viewLocation: {
         flexDirection: 'row',
@@ -110,16 +139,17 @@ const styles = StyleSheet.create({
         color: '#FFF',
         fontWeight: 'bold',
     },
-    body: {
-        borderRadius: 20,
-        padding: 10,
-        marginTop: 20,
-        paddingBottom: 25
-    },
     imgIcon: {
         height: 200,
         width: 200,
         alignSelf: 'center',
+    },
+    body: {
+        backgroundColor: 'rgba(300,300,300, 0.5)',
+        borderRadius: 20,
+        padding: 10,
+        marginTop: 20,
+        paddingBottom: 25
     },
     boxTemp: {
         flexDirection: 'row',
@@ -132,25 +162,26 @@ const styles = StyleSheet.create({
         color: '#FFF',
         fontWeight: 'bold',
     },
-    line: {
-        backgroundColor: 'white',
-        height: 2
-    },
-    description: {
-        fontSize: 17,
-        fontStyle: 'italic',
-        color: '#FFF',
-        fontWeight: 'bold',
-        marginBottom: 15,
-    },
     viewTemp: {
         flexDirection: 'row',
     },
     tempAdc: {
         fontSize: 20,
         fontStyle: 'italic',
-        color: '#FFF',
         fontWeight: 'bold',
+    },
+    description: {
+        fontSize: 17,
+        fontStyle: 'italic',
+        fontWeight: 'bold',
+        marginBottom: 15,
+        marginLeft: 10,
+    },
+    box: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginHorizontal: 25,
     },
     text: {
         fontSize: 17,
@@ -158,10 +189,4 @@ const styles = StyleSheet.create({
         color: '#FFF',
         fontWeight: 'bold',
     },
-    box: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        marginHorizontal: 25,
-    }
 })

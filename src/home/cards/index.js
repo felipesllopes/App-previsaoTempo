@@ -8,11 +8,11 @@ export default function Cards({ forecast, reload }) {
     }, [reload])
 
     function renderItem({ item }) {
-        return (<ListCards data={item} forecast={forecast} />)
+        return (<ListCards data={item} />)
     }
 
     return (
-        <View style={styles.cardsContainer}>
+        <View>
             <FlatList
                 showsHorizontalScrollIndicator={false}
                 style={styles.flatlist}
@@ -26,10 +26,6 @@ export default function Cards({ forecast, reload }) {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        alignItems: 'center',
-        height: '30%',
-    },
     flatlist: {
         marginHorizontal: 20,
         marginBottom: 20,
