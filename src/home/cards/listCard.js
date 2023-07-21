@@ -28,22 +28,18 @@ export default function ListCards({ data }) {
         <View style={styles.container}>
 
             <View style={styles.date}>
-                <Text style={[styles.tempText, { fontWeight: 'bold', fontSize: 15 }]}>{day}/{month}</Text>
-                <Text style={[styles.tempText, { fontWeight: 'bold', fontSize: 15 }]}>{hour}h</Text>
+                <Text style={styles.time}>{day}/{month}</Text>
+                <Text style={styles.time}>{hour}h</Text>
             </View>
 
-            <Text style={styles.tempText}>{temp} ºC</Text>
+            <View style={styles.box}>
+                <Text style={[styles.tempText, { fontSize: 18 }]}>{temp}ºC</Text>
+                <Ionicons name="thermometer-outline" size={18} color={'#000'} />
+            </View>
+
             <Image source={icon} style={{ height: 50, width: 50 }} />
 
-            <View style={styles.box}>
-                <Ionicons name="arrow-up" size={20} color="black" />
-                <Text style={styles.tempText}>{tempMax} ºC</Text>
-            </View>
-
-            <View style={styles.box}>
-                <Ionicons name="arrow-down" size={20} color="black" />
-                <Text style={styles.tempText}>{tempMin} ºC</Text>
-            </View>
+            <Text style={styles.tempText}>{tempMax}/{tempMin}ºC</Text>
 
             <TouchableOpacity onPress={handleNavigation}>
                 <Text style={styles.infoAdc}>Mais info.</Text>
@@ -55,11 +51,11 @@ export default function ListCards({ data }) {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'rgba(190,190,190, 0.7)',
+        backgroundColor: 'rgba(220,220,220, 0.6)',
         alignItems: 'center',
         borderRadius: 6,
-        padding: 4,
-        marginHorizontal: 4,
+        padding: 5,
+        marginHorizontal: 3.5,
         paddingHorizontal: 6,
         elevation: 5,
         marginVertical: 6,
@@ -69,14 +65,21 @@ const styles = StyleSheet.create({
     },
     box: {
         flexDirection: 'row',
-        marginBottom: 1,
+        marginBottom: 2,
+        alignItems: 'baseline'
+    },
+    time: {
+        fontSize: 17,
+        fontWeight: 'bold',
     },
     tempText: {
-        fontSize: 16,
+        fontSize: 17,
+        marginVertical: 3,
     },
     infoAdc: {
         textDecorationLine: 'underline',
         fontWeight: 'bold',
         paddingVertical: 3,
+        fontSize: 15,
     },
 })

@@ -1,7 +1,6 @@
-import Ionicons from '@expo/vector-icons/Ionicons';
 import * as Location from 'expo-location';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ImageBackground, StyleSheet, View } from 'react-native';
 import Loading from '../Components/Loading';
 import api from '../services/api';
 import apiKey from '../services/apiKey';
@@ -13,7 +12,6 @@ export default function Home() {
 
     const [weather, setWeather] = useState(null);
     const [forecast, setForecast] = useState(null);
-    const [loading, setLoading] = useState(false);
     const [currentMinutes, setCurrentMinutes] = useState(new Date().getMinutes());
 
     useEffect(() => {
@@ -62,12 +60,6 @@ export default function Home() {
     }, [])
 
 
-    function reloading() {
-        setLoading(true)
-        updateTime()
-        setLoading(false)
-    }
-
     return (
         <View style={styles.container}>
 
@@ -77,17 +69,6 @@ export default function Home() {
                 <ImageBackground source={require('../img/wallpaper.jpg')} style={{ flex: 1 }}>
 
                     <Header weather={weather} reload={currentMinutes} />
-
-                    <TouchableOpacity activeOpacity={0.7} style={styles.updateButton} onPress={reloading}>
-                        {loading ?
-                            <ActivityIndicator size={26} color={'black'} />
-                            :
-                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <Text style={styles.updateText}>Atualizar</Text>
-                                <Ionicons name="reload-outline" size={24} color='black' />
-                            </View>
-                        }
-                    </TouchableOpacity>
 
                     <Cards forecast={forecast} reload={currentMinutes} />
 

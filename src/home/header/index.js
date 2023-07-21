@@ -1,3 +1,4 @@
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { useEffect, useState } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { ListIcons } from '../../Components/ListIcons';
@@ -17,7 +18,7 @@ export default function Header({ weather, reload }) {
     let longWeekDay = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"]
     let longMonth = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"]
 
-    let longDay = `${longWeekDay[dayWeek]}, ${day} de ${longMonth[month]} de ${year}, ${hours}:${min < 10 ? "0" + min : min}`;
+    let longDay = `${longWeekDay[dayWeek]}, ${day} de ${longMonth[month]} de ${year}, ${hours < 10 ? "0" + hours : hours}:${min < 10 ? "0" + min : min}`;
 
     useEffect(() => {
         setIcon(ListIcons(weather));
@@ -26,7 +27,11 @@ export default function Header({ weather, reload }) {
     return (
         <View style={styles.container}>
 
-            <Text style={styles.temp}>{parseInt(weather.main.temp - 273.15)}ºC</Text>
+            <View style={styles.box}>
+                <Text style={styles.temp}>{parseInt(weather.main.temp - 273.15)}ºC</Text>
+                <Ionicons name="thermometer-outline" size={27} color={'#FFF'} />
+            </View>
+
             <Image source={icon} style={styles.icon} />
             <Text style={styles.text}>{weather.sys.country}, {weather.name}</Text>
             <Text style={styles.text}>{longDay}</Text>
@@ -38,20 +43,24 @@ export default function Header({ weather, reload }) {
 const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
-        paddingTop: 20,
+        paddingVertical: 16,
+    },
+    box: {
+        flexDirection: 'row',
+        alignItems: 'baseline'
     },
     text: {
-        fontSize: 17,
+        fontSize: 19,
         color: '#FFF',
     },
     temp: {
-        fontSize: 24,
+        fontSize: 27,
         color: '#FFF',
         fontWeight: 'bold',
     },
     icon: {
         height: 70,
         width: 70,
-        margin: 10,
+        margin: 7,
     },
 })
