@@ -41,7 +41,7 @@ export default function ListCards({ data, reload }) {
 
             <Text style={styles.tempText}>{tempMax}/{tempMin}ºC</Text>
 
-            <TouchableOpacity onPress={handleNavigation}>
+            <TouchableOpacity onPress={handleNavigation} activeOpacity={0.7}>
                 <Text style={styles.infoAdc}>Mais info.</Text>
             </TouchableOpacity>
 

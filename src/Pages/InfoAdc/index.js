@@ -1,7 +1,7 @@
 import { Feather, Ionicons, } from '@expo/vector-icons';
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { ListIcons } from "../../Components/ListIcons";
 import { getData, storeData } from '../../Storage';
 
@@ -12,7 +12,8 @@ export default function InfoAdc() {
 
     const [icon, setIcon] = useState();
     const [temaDark, setTemaDark] = useState(false);
-    const [color, setColor] = useState('white');
+    const [reload, setReload] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     let day = route.params?.data.dt_txt.substring(8, 10);
     let month = route.params?.data.dt_txt.substring(5, 7);
@@ -31,12 +32,13 @@ export default function InfoAdc() {
         (async () => {
             setIcon(ListIcons(route.params?.data));
             setTemaDark(await getData());
+            setLoading(false)
         })()
-    }, [color]);
+    }, [reload]);
 
     async function handleTema() {
-        setTemaDark(current => (current === true ? false : true));
-        setColor(current => (current === 'white' ? 'black' : 'white'));
+        setLoading(true)
+        setReload(current => (current === false ? true : false));
 
         if (temaDark) {
             await storeData(false)
@@ -48,12 +50,16 @@ export default function InfoAdc() {
     return (
         <View style={[styles.container, { backgroundColor: temaDark ? '#000080' : '#00BFFF' }]}>
 
-            <TouchableOpacity style={styles.buttonBack} onPress={() => navigation.goBack()}>
+            <TouchableOpacity style={styles.buttonBack} onPress={() => navigation.goBack()} activeOpacity={0.7}>
                 <Feather name="arrow-left" size={30} color={'#FFF'} />
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.buttonTema} onPress={handleTema}>
-                <Ionicons name={temaDark ? 'moon' : 'sunny'} size={30} color={temaDark ? '#FFF' : '#000'} />
+            <TouchableOpacity style={styles.buttonTema} onPress={handleTema} activeOpacity={0.7}>
+                {loading ?
+                    <ActivityIndicator size={30} color={'#999'} />
+                    :
+                    <Ionicons name={temaDark ? 'moon' : 'sunny'} size={30} color={temaDark ? '#FFF' : '#000'} />
+                }
             </TouchableOpacity>
 
             <Text style={styles.date}>{day}/{month} - {hours}h</Text>
@@ -63,41 +69,41 @@ export default function InfoAdc() {
             <View style={styles.body}>
 
                 <View style={styles.boxTemp}>
-                    <Text style={[styles.temp, { color: color }]}>{parseInt(temp - 273.15)}ºC<Ionicons name="thermometer-outline" size={27} color={color} /></Text>
+                    <Text style={styles.temp}>{parseInt(temp - 273.15)}ºC<Ionicons name="thermometer-outline" size={27} /></Text>
 
-                    <Text style={[styles.tempAdc, { color: color }]}>{parseInt(temp_max - 273.15)}/{parseInt(temp_min - 273.15)}ºC</Text>
+                    <Text style={styles.tempAdc}>{parseInt(temp_max - 273.15)}/{parseInt(temp_min - 273.15)}ºC</Text>
                 </View>
 
-                <View style={{ height: 2, backgroundColor: color }} />
+                <View style={{ height: 2, backgroundColor: '#000' }} />
 
-                <Text style={[styles.description, { color: color }]}>{description}</Text>
-
-                <View style={styles.box}>
-                    <Text style={[styles.text, { color: color }]}>Humidade <Ionicons name="water" size={25} color={color} /></Text>
-                    <Text style={[styles.text, { color: color }]}>{humidity}%</Text>
-                </View>
+                <Text style={styles.description}>{description}</Text>
 
                 <View style={styles.box}>
-                    <Text style={[styles.text, { color: color }]}>Vel vento <Feather name="wind" size={25} color={color} /></Text>
-                    <Text style={[styles.text, { color: color }]}>{speed} km/h</Text>
+                    <Text style={styles.text}>Humidade <Ionicons name="water" size={25} /></Text>
+                    <Text style={styles.text}>{humidity}%</Text>
                 </View>
 
                 <View style={styles.box}>
-                    <Text style={[styles.text, { color: color }]}>Pressão atm <Ionicons name="md-chevron-down-sharp" size={25} color={color} /></Text>
-                    <Text style={[styles.text, { color: color }]}>{pressure} hPa</Text>
+                    <Text style={styles.text}>Vel vento <Feather name="wind" size={25} /></Text>
+                    <Text style={styles.text}>{speed} km/h</Text>
                 </View>
 
                 <View style={styles.box}>
-                    <Text style={[styles.text, { color: color }]}>Dir vento <Feather
+                    <Text style={styles.text}>Pressão atm <Ionicons name="md-chevron-down-sharp" size={25} /></Text>
+                    <Text style={styles.text}>{pressure} hPa</Text>
+                </View>
+
+                <View style={styles.box}>
+                    <Text style={styles.text}>Dir vento <Feather
                         name={deg === 0 ? 'arrow-up' : deg > 0 && deg < 90 ? 'arrow-up-right' : deg === 90 ? 'arrow-right' : deg > 90 && deg < 180 ? 'arrow-down-right' : deg === 180 ? 'arrow-down' : deg > 180 && deg < 270 ? 'arrow-down-left' : deg === 270 ? 'arrow-left' : 'arrow-up-left'}
-                        size={25} color={color}
+                        size={25}
                     /></Text>
-                    <Text style={[styles.text, { color: color }]}>{deg}º</Text>
+                    <Text style={styles.text}>{deg}º</Text>
                 </View>
 
                 <View style={styles.box}>
-                    <Text style={[styles.text, { color: color }]}>Visibilidade <Feather name="eye" size={25} color={color} /></Text>
-                    <Text style={[styles.text, { color: color }]}>{visibility / 1000} km</Text>
+                    <Text style={styles.text}>Visibilidade <Feather name="eye" size={25} /></Text>
+                    <Text style={styles.text}>{visibility / 1000} km</Text>
                 </View>
             </View>
 
@@ -153,7 +159,6 @@ const styles = StyleSheet.create({
     temp: {
         fontSize: 33,
         fontWeight: 'bold',
-        color: '#FFF',
         fontWeight: 'bold',
     },
     tempAdc: {
@@ -176,7 +181,6 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 19,
         marginVertical: 3,
-        color: '#FFF',
         fontWeight: 'bold',
     },
 })
