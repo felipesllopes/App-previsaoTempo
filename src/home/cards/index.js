@@ -8,7 +8,7 @@ export default function Cards({ forecast, reload }) {
     }, [reload])
 
     function renderItem({ item }) {
-        return (<ListCards data={item} />)
+        return (<ListCards data={item} reload={reload} />)
     }
 
     return (

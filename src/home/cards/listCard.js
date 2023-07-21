@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { ListIcons } from '../../Components/ListIcons';
 
-export default function ListCards({ data }) {
+export default function ListCards({ data, reload }) {
 
     const navigation = useNavigation();
     const [icon, setIcon] = useState();
@@ -18,7 +18,7 @@ export default function ListCards({ data }) {
 
     useEffect(() => {
         setIcon(ListIcons(data)); // retornará a imagem do icone
-    }, [])
+    }, [reload])
 
     function handleNavigation() {
         navigation.navigate('InfoAdc', { data: data })

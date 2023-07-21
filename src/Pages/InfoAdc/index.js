@@ -3,6 +3,7 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { ListIcons } from "../../Components/ListIcons";
+import { getData, storeData } from '../../Storage';
 
 export default function InfoAdc() {
 
@@ -26,19 +27,28 @@ export default function InfoAdc() {
     let temp_max = route.params?.data.main.temp_max;
     let temp_min = route.params?.data.main.temp_min;
 
-    function handleTema() {
-        setTemaDark(current => (current === true ? false : true))
-        setColor(current => (current === 'white' ? 'black' : 'white'))
-    }
-
     useEffect(() => {
-        setIcon(ListIcons(route.params?.data));
-    }, [])
+        (async () => {
+            setIcon(ListIcons(route.params?.data));
+            setTemaDark(await getData());
+        })()
+    }, [color]);
+
+    async function handleTema() {
+        setTemaDark(current => (current === true ? false : true));
+        setColor(current => (current === 'white' ? 'black' : 'white'));
+
+        if (temaDark) {
+            await storeData(false)
+        } else {
+            await storeData(true);
+        }
+    }
 
     return (
         <View style={[styles.container, { backgroundColor: temaDark ? '#000080' : '#00BFFF' }]}>
 
-            <TouchableOpacity onPress={() => navigation.goBack()}>
+            <TouchableOpacity style={styles.buttonBack} onPress={() => navigation.goBack()}>
                 <Feather name="arrow-left" size={30} color={'#FFF'} />
             </TouchableOpacity>
 
@@ -100,30 +110,24 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 10,
     },
+    buttonBack: {
+        position: 'absolute',
+        padding: 10,
+        zIndex: 2,
+    },
     buttonTema: {
         position: 'absolute',
         right: 0,
-        margin: 10,
+        padding: 10,
+        zIndex: 2
     },
     date: {
         textAlign: 'center',
         fontSize: 24,
         fontWeight: 'bold',
-        marginRight: 5,
         color: '#FFF',
         fontWeight: 'bold',
-    },
-    viewLocation: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        margin: 10,
-    },
-    location: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginRight: 5,
-        color: '#FFF',
-        fontWeight: 'bold',
+        marginTop: 30
     },
     imgIcon: {
         height: 200,
@@ -138,7 +142,6 @@ const styles = StyleSheet.create({
         padding: 10,
         marginTop: 20,
         paddingBottom: 25,
-        elevation: 3,
         marginHorizontal: 10,
     },
     boxTemp: {
