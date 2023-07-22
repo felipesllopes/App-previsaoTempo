@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
         padding: 5,
         marginHorizontal: 3.5,
         paddingHorizontal: 6,
-        elevation: 5,
+        elevation: 2,
         marginVertical: 6,
     },
     date: {

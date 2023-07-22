@@ -91,21 +91,4 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: 'white',
     },
-    updateButton: {
-        backgroundColor: '#EEE',
-        alignSelf: 'center',
-        marginTop: 20,
-        padding: 3,
-        paddingHorizontal: 5,
-        marginBottom: 20,
-        borderRadius: 3,
-        width: 120,
-        alignItems: 'center',
-        elevation: 5,
-    },
-    updateText: {
-        fontSize: 18,
-        marginRight: 4,
-        fontWeight: 'bold',
-    },
 })
