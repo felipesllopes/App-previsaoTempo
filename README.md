@@ -3,17 +3,18 @@
 ### About
 This application has the function of showing the current weather forecast, with temperature, date, wind, humidity, etc., in addition to providing information about the forecast for the next 5 days, with an interval of 3 hours.
 
+![Post-previsaoTempo](https://github.com/felipesllopes/App-previsaoTempo/assets/99768939/1898062b-d4f7-4a9d-bf0c-0bcf4341ddb1)
+
+
 ### Screen Main
 
-![img1](https://github.com/felipesllopes/App-previsaoTempo/assets/99768939/03fcf900-dff5-4d37-afa3-9cd927f4ed90)
+![img1](https://github.com/felipesllopes/App-previsaoTempo/assets/99768939/48da3a6f-a562-4f73-8f58-93c6b4e19f57)
+
 
 ### Additional Information
 
-![img2](https://github.com/felipesllopes/App-previsaoTempo/assets/99768939/874e1da1-9539-4830-8939-01a543d28ea3)
-![img3](https://github.com/felipesllopes/App-previsaoTempo/assets/99768939/495e3f52-3877-4601-b0e3-850a1382e5c9)
-
-
-
+![img2](https://github.com/felipesllopes/App-previsaoTempo/assets/99768939/e59d08a6-b9d8-4464-a20a-fc562f82620b)
+![img3](https://github.com/felipesllopes/App-previsaoTempo/assets/99768939/fc9e2772-27c5-42b1-9a63-12042aea4a98)
 
 
 https://github.com/felipesllopes/App-previsaoTempo/assets/99768939/b0aa4032-24c6-405d-9083-f2fe62f0e301
