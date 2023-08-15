@@ -20,11 +20,17 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+        "backgroundColor": "#148BCE"
+      },
+      "package": "com.felipelopes.climacerto"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "33a9fe18-aacf-44b3-8f36-4ce26a4f5415"
+      }
     }
   }
 }
