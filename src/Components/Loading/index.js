@@ -1,21 +1,20 @@
-import { Image, StyleSheet, View } from "react-native";
+import styled from 'styled-components/native';
 
 export default function Loading() {
     return (
-        <View style={styles.container}>
-            <Image style={styles.image} source={require('../../img/logo.png')} />
-        </View>
+        <Container>
+            <Logo source={require('../../img/logo.png')} />
+        </Container>
     )
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    image: {
-        height: 280,
-        width: 280,
-    },
-})
+const Container = styled.SafeAreaView`
+flex: 1;
+align-items: center;
+justify-content: center;
+`;
+
+const Logo = styled.Image`
+height: 280px;
+width: 280px;
+`;

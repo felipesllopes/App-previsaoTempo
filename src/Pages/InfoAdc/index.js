@@ -1,7 +1,7 @@
 import { Feather, Ionicons, } from '@expo/vector-icons';
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import { ActivityIndicator, Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import styled from 'styled-components/native';
 import { ListIcons } from "../../Components/ListIcons";
 import { getData, storeData } from '../../Storage';
 
@@ -48,139 +48,150 @@ export default function InfoAdc() {
     }
 
     return (
-        <View style={[styles.container, { backgroundColor: temaDark ? '#000080' : '#00BFFF' }]}>
+        <Container style={{ backgroundColor: temaDark ? '#000080' : '#00BFFF' }}>
 
-            <TouchableOpacity style={styles.buttonBack} onPress={() => navigation.goBack()} activeOpacity={0.7}>
+            <ButtonBack onPress={() => navigation.goBack()} activeOpacity={0.7}>
                 <Feather name="arrow-left" size={30} color={'#FFF'} />
-            </TouchableOpacity>
+            </ButtonBack>
 
-            <TouchableOpacity style={styles.buttonTema} onPress={handleTema} activeOpacity={0.7}>
+            <ButtonTheme onPress={handleTema} activeOpacity={0.7}>
                 {loading ?
                     <ActivityIndicator size={30} color={'#999'} />
                     :
                     <Ionicons name={temaDark ? 'moon' : 'sunny'} size={30} color={temaDark ? '#FFF' : '#000'} />
                 }
-            </TouchableOpacity>
+            </ButtonTheme>
 
-            <Text style={styles.date}>{day}/{month} - {hours}h</Text>
+            <Date>{day}/{month} - {hours}h</Date>
 
-            <Image source={icon} style={styles.imgIcon} />
+            <ImageIcon source={icon} />
 
-            <View style={styles.body}>
+            <Body>
 
-                <View style={styles.boxTemp}>
-                    <Text style={styles.temp}>{parseInt(temp - 273.15)}ºC<Ionicons name="thermometer-outline" size={27} /></Text>
+                <BoxTemperature>
+                    <Temperature>{parseInt(temp - 273.15)}ºC<Ionicons name="thermometer-outline" size={27} /></Temperature>
 
-                    <Text style={styles.tempAdc}>{parseInt(temp_max - 273.15)}/{parseInt(temp_min - 273.15)}ºC</Text>
-                </View>
+                    <TempAdc>{parseInt(temp_max - 273.15)}/{parseInt(temp_min - 273.15)}ºC</TempAdc>
+                </BoxTemperature>
 
-                <View style={{ height: 2, backgroundColor: '#000' }} />
+                <Line />
 
-                <Text style={styles.description}>{description}</Text>
+                <Description>{description}</Description>
 
-                <View style={styles.box}>
-                    <Text style={styles.text}>Humidade <Ionicons name="water" size={25} /></Text>
-                    <Text style={styles.text}>{humidity}%</Text>
-                </View>
+                <Box>
+                    <Text>Humidade <Ionicons name="water" size={25} /></Text>
+                    <Text>{humidity}%</Text>
+                </Box>
 
-                <View style={styles.box}>
-                    <Text style={styles.text}>Vel vento <Feather name="wind" size={25} /></Text>
-                    <Text style={styles.text}>{speed} km/h</Text>
-                </View>
+                <Box>
+                    <Text>Vel vento <Feather name="wind" size={25} /></Text>
+                    <Text>{speed} km/h</Text>
+                </Box>
 
-                <View style={styles.box}>
-                    <Text style={styles.text}>Pressão atm <Ionicons name="md-chevron-down-sharp" size={25} /></Text>
-                    <Text style={styles.text}>{pressure} hPa</Text>
-                </View>
+                <Box>
+                    <Text>Pressão atm <Ionicons name="md-chevron-down-sharp" size={25} /></Text>
+                    <Text>{pressure} hPa</Text>
+                </Box>
 
-                <View style={styles.box}>
-                    <Text style={styles.text}>Dir vento <Feather
+                <Box>
+                    <Text>Dir vento <Feather
                         name={deg === 0 ? 'arrow-up' : deg > 0 && deg < 90 ? 'arrow-up-right' : deg === 90 ? 'arrow-right' : deg > 90 && deg < 180 ? 'arrow-down-right' : deg === 180 ? 'arrow-down' : deg > 180 && deg < 270 ? 'arrow-down-left' : deg === 270 ? 'arrow-left' : 'arrow-up-left'}
                         size={25}
                     /></Text>
-                    <Text style={styles.text}>{deg}º</Text>
-                </View>
+                    <Text>{deg}º</Text>
+                </Box>
 
-                <View style={styles.box}>
-                    <Text style={styles.text}>Visibilidade <Feather name="eye" size={25} /></Text>
-                    <Text style={styles.text}>{visibility / 1000} km</Text>
-                </View>
-            </View>
+                <Box>
+                    <Text>Visibilidade <Feather name="eye" size={25} /></Text>
+                    <Text>{visibility / 1000} km</Text>
+                </Box>
+            </Body>
 
-        </View>
+        </Container>
     )
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 10,
-    },
-    buttonBack: {
-        position: 'absolute',
-        padding: 10,
-        zIndex: 2,
-    },
-    buttonTema: {
-        position: 'absolute',
-        right: 0,
-        padding: 10,
-        zIndex: 2
-    },
-    date: {
-        textAlign: 'center',
-        fontSize: 24,
-        fontWeight: 'bold',
-        color: '#FFF',
-        fontWeight: 'bold',
-        marginTop: 30
-    },
-    imgIcon: {
-        height: 200,
-        width: 200,
-        alignSelf: 'center',
-        marginVertical: 10,
-        marginTop: 20,
-    },
-    body: {
-        backgroundColor: 'rgba(300,300,300, 0.5)',
-        borderRadius: 20,
-        padding: 10,
-        marginTop: 20,
-        paddingBottom: 25,
-        marginHorizontal: 10,
-    },
-    boxTemp: {
-        flexDirection: 'row',
-        alignItems: 'baseline',
-        justifyContent: 'space-between',
-        marginHorizontal: 10,
-    },
-    temp: {
-        fontSize: 33,
-        fontWeight: 'bold',
-        fontWeight: 'bold',
-    },
-    tempAdc: {
-        fontSize: 25,
-        fontWeight: 'bold',
-    },
-    description: {
-        fontSize: 18,
-        fontStyle: 'italic',
-        fontWeight: 'bold',
-        marginBottom: 15,
-        marginLeft: 10,
-    },
-    box: {
-        flexDirection: 'row',
-        alignItems: 'baseline',
-        justifyContent: 'space-between',
-        marginHorizontal: 25,
-    },
-    text: {
-        fontSize: 19,
-        marginVertical: 3,
-        fontWeight: 'bold',
-    },
-})
+const Container = styled.SafeAreaView`
+flex: 1;
+padding: 10px;
+`;
+
+const ButtonBack = styled.TouchableOpacity`
+position: absolute;
+padding: 10px;
+z-index: 2;
+`;
+
+const ButtonTheme = styled.TouchableOpacity`
+position: absolute;
+right: 0;
+padding: 10px;
+z-index: 2;
+`;
+
+const ActivityIndicator = styled.ActivityIndicator``;
+
+const Date = styled.Text`
+text-align: center;
+font-size: 24px;
+font-weight: bold;
+color: #FFF;
+margin-top: 30px;
+`;
+
+const ImageIcon = styled.Image`
+height: 200px;
+width: 200px;
+align-self: center;
+margin: 20px 0 10px;
+`;
+
+const Body = styled.View`
+background-color: rgba(300,300,300,0.5);
+border-radius: 20px;
+padding: 10px 10px 25px;
+margin: 20px 10px 10px;
+`;
+
+const BoxTemperature = styled.View`
+flex-direction: row;
+align-items: baseline;
+justify-content: space-between;
+margin: 0 10px;
+`;
+
+const Temperature = styled.Text`
+font-size: 33px;
+font-weight: bold;
+`;
+
+const TempAdc = styled.Text`
+font-size: 25px;
+font-weight: bold;
+`;
+
+const Line = styled.View`
+height: 2px;
+background-color: #000;
+`;
+
+const Description = styled.Text`
+font-size: 18px;
+font-style: italic;
+font-weight: bold;
+margin-bottom: 15px;
+margin-left: 10px;
+`;
+
+const Box = styled.View`
+flex-direction: row;
+align-items: baseline;
+justify-content: space-between;
+margin: 0 25px;
+`;
+
+const Text = styled.Text`
+font-size: 19px;
+margin: 3px 0;
+font-weight: bold;
+`;

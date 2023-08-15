@@ -1,7 +1,7 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { styled } from 'styled-components/native';
 import { ListIcons } from '../../Components/ListIcons';
 
 export default function ListCards({ data, reload }) {
@@ -25,61 +25,68 @@ export default function ListCards({ data, reload }) {
     }
 
     return (
-        <View style={styles.container}>
+        <Container style={{ elevation: 2 }}>
 
-            <View style={styles.date}>
-                <Text style={styles.time}>{day}/{month}</Text>
-                <Text style={styles.time}>{hour}h</Text>
-            </View>
+            <ViewDate>
+                <TextDate>{day}/{month}</TextDate>
+                <TextDate>{hour}h</TextDate>
+            </ViewDate>
 
-            <View style={styles.box}>
-                <Text style={[styles.tempText, { fontSize: 18 }]}>{temp}ºC</Text>
+            <Box>
+                <TextTemperature style={{ fontSize: 18 }}>{temp}ºC</TextTemperature>
                 <Ionicons name="thermometer-outline" size={18} color={'#000'} />
-            </View>
+            </Box>
 
-            <Image source={icon} style={{ height: 50, width: 50 }} />
+            <ImageIcon source={icon} />
 
-            <Text style={styles.tempText}>{tempMax}/{tempMin}ºC</Text>
+            <TextTemperature>{tempMax}/{tempMin}ºC</TextTemperature>
 
-            <TouchableOpacity onPress={handleNavigation} activeOpacity={0.7}>
-                <Text style={styles.infoAdc}>Mais info.</Text>
-            </TouchableOpacity>
+            <Button onPress={handleNavigation} activeOpacity={0.7}>
+                <TextButton>Mais info.</TextButton>
+            </Button>
 
-        </View>
+        </Container>
     )
 }
 
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: 'rgba(220,220,220, 0.6)',
-        alignItems: 'center',
-        borderRadius: 6,
-        padding: 5,
-        marginHorizontal: 3.5,
-        paddingHorizontal: 6,
-        elevation: 2,
-        marginVertical: 6,
-    },
-    date: {
-        alignItems: 'center'
-    },
-    box: {
-        flexDirection: 'row',
-        marginBottom: 2,
-        alignItems: 'baseline'
-    },
-    time: {
-        fontSize: 17,
-        fontWeight: 'bold',
-    },
-    tempText: {
-        fontSize: 17,
-        marginVertical: 3,
-    },
-    infoAdc: {
-        textDecorationLine: 'underline',
-        fontWeight: 'bold',
-        paddingVertical: 3,
-        fontSize: 15,
-    },
-})
+const Container = styled.View`
+background-color: rgba(220,220,220, 0.6);
+align-items: center;
+border-radius: 6px;
+padding: 5px 6px;
+margin: 6px 3.5px;
+`;
+
+const ViewDate = styled.View`
+align-items: center;
+`;
+
+const TextDate = styled.Text`
+font-size: 17px;
+font-weight: bold;
+`;
+
+const Box = styled.View`
+flex-direction: row;
+margin-bottom: 2px;
+align-items: baseline;
+`;
+
+const TextTemperature = styled.Text`
+font-size: 17px;
+margin: 3px 0;
+`;
+
+const ImageIcon = styled.Image`
+height: 50px;
+width: 50px;
+`;
+
+const Button = styled.TouchableOpacity``;
+
+const TextButton = styled.Text`
+text-decoration-line: underline;
+font-weight: bold;
+padding: 3px 0;
+font-size: 15px;
+`;

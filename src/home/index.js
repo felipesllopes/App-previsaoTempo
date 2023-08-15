@@ -1,6 +1,6 @@
 import * as Location from 'expo-location';
 import React, { useEffect, useState } from 'react';
-import { ImageBackground, StyleSheet, View } from 'react-native';
+import styled from 'styled-components/native';
 import Loading from '../Components/Loading';
 import api from '../services/api';
 import apiKey from '../services/apiKey';
@@ -61,12 +61,12 @@ export default function Home() {
 
 
     return (
-        <View style={styles.container}>
+        <Container>
 
             {!forecast ?
                 <Loading />
                 :
-                <ImageBackground source={require('../img/wallpaper.jpg')} style={{ flex: 1 }}>
+                <Wallpaper source={require('../img/wallpaper.jpg')}>
 
                     <Header weather={weather} reload={currentMinutes} />
 
@@ -74,21 +74,18 @@ export default function Home() {
 
                     <InfoAdc weather={weather} reload={currentMinutes} />
 
-                </ImageBackground>
+                </Wallpaper>
             }
 
-        </View>
+        </Container>
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#1E90FF',
-    },
-    loadingScreen: {
-        fontSize: 19,
-        textAlign: 'center',
-        color: 'white',
-    },
-})
+const Container = styled.SafeAreaView`
+flex: 1;
+background-color: #1E90FF;
+`;
+
+const Wallpaper = styled.ImageBackground`
+flex: 1;
+`;

@@ -1,6 +1,6 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useEffect, useState } from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import styled from 'styled-components/native';
 import { ListIcons } from '../../Components/ListIcons';
 
 export default function Header({ weather, reload }) {
@@ -25,42 +25,44 @@ export default function Header({ weather, reload }) {
     }, [reload])
 
     return (
-        <View style={styles.container}>
+        <Container>
 
-            <View style={styles.box}>
-                <Text style={styles.temp}>{parseInt(weather.main.temp - 273.15)}ºC</Text>
+            <Box>
+                <Temperature>{parseInt(weather.main.temp - 273.15)}ºC</Temperature>
                 <Ionicons name="thermometer-outline" size={27} color={'#FFF'} />
-            </View>
+            </Box>
 
-            <Image source={icon} style={styles.icon} />
-            <Text style={styles.text}>{weather.sys.country}, {weather.name}</Text>
-            <Text style={styles.text}>{longDay}</Text>
+            <ImageIcon source={icon} />
+            <Text>{weather.sys.country}, {weather.name}</Text>
+            <Text>{longDay}</Text>
 
-        </View>
+        </Container>
     )
 }
 
-const styles = StyleSheet.create({
-    container: {
-        alignItems: 'center',
-        paddingVertical: 16,
-    },
-    box: {
-        flexDirection: 'row',
-        alignItems: 'baseline'
-    },
-    text: {
-        fontSize: 19,
-        color: '#FFF',
-    },
-    temp: {
-        fontSize: 27,
-        color: '#FFF',
-        fontWeight: 'bold',
-    },
-    icon: {
-        height: 70,
-        width: 70,
-        margin: 7,
-    },
-})
+const Container = styled.View`
+align-items: center;
+padding: 16px 0;
+`;
+
+const Box = styled.View`
+flex-direction: row;
+align-items: baseline;
+`;
+
+const Temperature = styled.Text`
+font-size: 27px;
+color: #FFF;
+font-weight: bold;
+`;
+
+const ImageIcon = styled.Image`
+height: 70px;
+width: 70px;
+margin: 7px;
+`;
+
+const Text = styled.Text`
+font-size: 19px;
+color: #FFF;
+`;

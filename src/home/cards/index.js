@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import { styled } from "styled-components/native";
 import ListCards from "./listCard";
 
 export default function Cards({ forecast, reload }) {
@@ -12,22 +12,20 @@ export default function Cards({ forecast, reload }) {
     }
 
     return (
-        <View>
+        <Container>
             <FlatList
                 showsHorizontalScrollIndicator={false}
-                style={styles.flatlist}
                 horizontal={true}
                 data={forecast.list}
                 keyExtractor={item => String(item.dt)}
                 renderItem={renderItem}
             />
-        </View>
+        </Container>
     )
 }
 
-const styles = StyleSheet.create({
-    flatlist: {
-        marginHorizontal: 20,
-        marginBottom: 20,
-    },
-})
+const Container = styled.View``;
+
+const FlatList = styled.FlatList`
+margin: 0 20px 20px 20px;
+`;

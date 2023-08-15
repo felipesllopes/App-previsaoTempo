@@ -1,6 +1,6 @@
 import { Feather, Ionicons } from '@expo/vector-icons';
 import { useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import styled from 'styled-components/native';
 
 export default function InfoAdc({ weather, reload }) {
 
@@ -16,71 +16,90 @@ export default function InfoAdc({ weather, reload }) {
     useEffect(() => {
     }, [reload])
 
-
     return (
 
-        <View style={styles.container}>
+        <Container style={{ elevation: 2 }}>
 
-            <View style={[styles.box, { marginHorizontal: 7 }]}>
-                <Text style={[styles.info, { fontStyle: 'italic' }]}>{description}</Text>
-                <Text style={[styles.info, { fontSize: 24 }]}>{parseInt(temp_max - 273.15)}/{parseInt(temp_min - 273.15)}ºC</Text>
-            </View>
+            <BoxTop>
+                <Description>{description}</Description>
+                <Temperature>{parseInt(temp_max - 273.15)}/{parseInt(temp_min - 273.15)}ºC</Temperature>
+            </BoxTop>
 
-            <View style={{ height: 2, backgroundColor: 'black', marginBottom: 10, }} />
+            <Line />
 
-            <View style={styles.box}>
-                <Text style={styles.info}>Humidade <Ionicons name="water" size={25} color={'#000'} /></Text>
-                <Text style={styles.info}>{humidity}%</Text>
-            </View>
+            <Box>
+                <Info>Humidade <Ionicons name="water" size={25} color={'#000'} /></Info>
+                <Info>{humidity}%</Info>
+            </Box>
 
-            <View style={styles.box}>
-                <Text style={styles.info}>Vel vento <Feather name="wind" size={25} color={'#000'} /></Text>
-                <Text style={styles.info}>{speed} km/h</Text>
-            </View>
+            <Box>
+                <Info>Vel vento <Feather name="wind" size={25} color={'#000'} /></Info>
+                <Info>{speed} km/h</Info>
+            </Box>
 
-            <View style={styles.box}>
-                <Text style={styles.info}>Pressão atm <Ionicons name="md-chevron-down-sharp" size={25} color={'#000'} /></Text>
-                <Text style={styles.info}>{pressure} hPa</Text>
-            </View>
+            <Box>
+                <Info>Pressão atm <Ionicons name="md-chevron-down-sharp" size={25} color={'#000'} /></Info>
+                <Info>{pressure} hPa</Info>
+            </Box>
 
-            <View style={styles.box}>
-                <Text style={styles.info}>Dir vento <Feather
+            <Box>
+                <Info>Dir vento <Feather
                     name={deg === 0 ? 'arrow-up' : deg > 0 && deg < 90 ? 'arrow-up-right' : deg === 90 ? 'arrow-right' : deg > 90 && deg < 180 ? 'arrow-down-right' : deg === 180 ? 'arrow-down' : deg > 180 && deg < 270 ? 'arrow-down-left' : deg === 270 ? 'arrow-left' : 'arrow-up-left'}
                     size={25} color={'#000'}
-                /></Text>
-                <Text style={styles.info}>{deg}º</Text>
-            </View>
+                /></Info>
+                <Info>{deg}º</Info>
+            </Box>
 
-            <View style={styles.box}>
-                <Text style={styles.info}>Visibilidade <Feather name="eye" size={25} color={'#000'} /></Text>
-                <Text style={styles.info}>{visibility / 1000} km</Text>
-            </View>
+            <Box>
+                <Info>Visibilidade <Feather name="eye" size={25} color={'#000'} /></Info>
+                <Info>{visibility / 1000} km</Info>
+            </Box>
 
-        </View>
+        </Container>
     )
 }
 
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: 'rgba(250,250,250, 0.7)',
-        padding: 15,
-        borderRadius: 7,
-        elevation: 2,
-        marginHorizontal: 30,
-    },
-    box: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'baseline',
-    },
-    info: {
-        fontSize: 17,
-        fontWeight: 'bold',
-    },
-    infoAdc: {
-        textDecorationLine: 'underline',
-        fontWeight: 'bold',
-        fontSize: 17,
-        marginTop: 5,
-    }
-})
+const Container = styled.View`
+background-color: rgba(250,250,250,0.7);
+padding: 15px;
+border-radius: 7px;
+margin: 0 30px;
+`;
+
+const BoxTop = styled.View`
+flex-direction: row;
+justify-content: space-between;
+align-items: baseline;
+margin: 0 7px;
+flex-wrap: wrap;
+`;
+
+const Box = styled.View`
+flex-direction: row;
+justify-content: space-between;
+align-items: baseline;
+`;
+
+const Description = styled.Text`
+font-size: 17px;
+font-weight: bold;
+font-style: italic;
+margin: 0 3px;
+`;
+
+const Temperature = styled.Text`
+font-size: 24px;
+font-weight: bold;
+
+`;
+
+const Line = styled.View`
+height: 2px;
+background-color: #000;
+margin-bottom: 10px;
+`;
+
+const Info = styled.Text`
+font-size: 17px;
+font-weight: bold;
+`;
