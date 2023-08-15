@@ -28,9 +28,6 @@ https://github.com/felipesllopes/App-previsaoTempo/assets/99768939/b0aa4032-24c6
 ![React Native](https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![Visual Studio Code](https://img.shields.io/badge/Visual_Studio_Code-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white)
 
-### 📚 Used libraries
-- [Axios](https://axios-http.com/ptbr/docs/intro)
-- [Location](https://docs.expo.dev/versions/latest/sdk/location/)
 
 ### ⚙ Used API
 - [OpenWeatherMap](https://openweathermap.org/)
@@ -40,6 +37,22 @@ https://github.com/felipesllopes/App-previsaoTempo/assets/99768939/b0aa4032-24c6
 
 [OpenWeatherMap/forecast5](https://openweathermap.org/forecast5)
 
-### Installations (using expo)
-- npm install axios
-- npx expo install expo-location
+
+### 📚 Used libraries
+
+- [Expo Location](https://docs.expo.dev/versions/latest/sdk/location/?utm_source=google&utm_medium=cpc&utm_content=performancemax&gclid=CjwKCAjwxOymBhAFEiwAnodBLAWizmS85cOEaKi98d9WN9sag-_iF_-pFTZKZvcEAsjKh4uoWC_xPBoCK4MQAvD_BwE)
+- [React Navigation](https://reactnavigation.org/docs/getting-started/)
+- [Stack Navigation](https://reactnavigation.org/docs/stack-navigator)
+- [Axios](https://www.npmjs.com/package/react-native-axios)
+- [Styled Components](https://styled-components.com/docs/basics)
+- [AsyncStorage](https://docs.expo.dev/versions/latest/sdk/async-storage/?utm_source=google&utm_medium=cpc&utm_content=performancemax&gclid=Cj0KCQjwoeemBhCfARIsADR2QCvEshr6Xc9EIJgHd8zg8AB1C2FQZJsiHy0J4LACgvYHaVEHyVG5guAaAlFWEALw_wcB)
+
+
+
+### OBS ❗❗❗❗❗
+The data (latitude and longitude) is being passed correctly, but the returned data is wrong.
+
+
+## Click here to download the project:
+[![APK-Download](https://img.shields.io/badge/APK_Download-07C160?style=for-the-badge&logo=download&logoColor=white)](https://drive.google.com/file/d/1zbukZXMrdEQ9SF26oNTDfCL_niDtooOc/view?usp=sharing)
+
