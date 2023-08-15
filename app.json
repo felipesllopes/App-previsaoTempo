@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "previsaoTempo",
-    "slug": "previsaoTempo",
+    "name": "Clima Certo",
+    "slug": "clima-certo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

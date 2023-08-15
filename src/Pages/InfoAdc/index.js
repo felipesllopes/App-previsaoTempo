@@ -167,7 +167,6 @@ font-weight: bold;
 
 const TempAdc = styled.Text`
 font-size: 25px;
-font-weight: bold;
 `;
 
 const Line = styled.View`
@@ -178,7 +177,6 @@ background-color: #000;
 const Description = styled.Text`
 font-size: 18px;
 font-style: italic;
-font-weight: bold;
 margin-bottom: 15px;
 margin-left: 10px;
 `;
@@ -193,5 +191,4 @@ margin: 0 25px;
 const Text = styled.Text`
 font-size: 19px;
 margin: 3px 0;
-font-weight: bold;
 `;

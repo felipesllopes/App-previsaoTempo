@@ -28,30 +28,30 @@ export default function InfoAdc({ weather, reload }) {
             <Line />
 
             <Box>
-                <Info>Humidade <Ionicons name="water" size={25} color={'#000'} /></Info>
+                <Info>Humidade <Ionicons name="water" size={22} color={'#000'} /></Info>
                 <Info>{humidity}%</Info>
             </Box>
 
             <Box>
-                <Info>Vel vento <Feather name="wind" size={25} color={'#000'} /></Info>
+                <Info>Vel vento <Feather name="wind" size={22} color={'#000'} /></Info>
                 <Info>{speed} km/h</Info>
             </Box>
 
             <Box>
-                <Info>Pressão atm <Ionicons name="md-chevron-down-sharp" size={25} color={'#000'} /></Info>
+                <Info>Pressão atm <Ionicons name="md-chevron-down-sharp" size={22} color={'#000'} /></Info>
                 <Info>{pressure} hPa</Info>
             </Box>
 
             <Box>
                 <Info>Dir vento <Feather
                     name={deg === 0 ? 'arrow-up' : deg > 0 && deg < 90 ? 'arrow-up-right' : deg === 90 ? 'arrow-right' : deg > 90 && deg < 180 ? 'arrow-down-right' : deg === 180 ? 'arrow-down' : deg > 180 && deg < 270 ? 'arrow-down-left' : deg === 270 ? 'arrow-left' : 'arrow-up-left'}
-                    size={25} color={'#000'}
+                    size={22} color={'#000'}
                 /></Info>
                 <Info>{deg}º</Info>
             </Box>
 
             <Box>
-                <Info>Visibilidade <Feather name="eye" size={25} color={'#000'} /></Info>
+                <Info>Visibilidade <Feather name="eye" size={22} color={'#000'} /></Info>
                 <Info>{visibility / 1000} km</Info>
             </Box>
 
@@ -81,8 +81,7 @@ align-items: baseline;
 `;
 
 const Description = styled.Text`
-font-size: 17px;
-font-weight: bold;
+font-size: 18px;
 font-style: italic;
 margin: 0 3px;
 `;
@@ -100,6 +99,5 @@ margin-bottom: 10px;
 `;
 
 const Info = styled.Text`
-font-size: 17px;
-font-weight: bold;
+font-size: 18px;
 `;

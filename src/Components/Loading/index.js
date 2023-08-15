@@ -15,6 +15,6 @@ justify-content: center;
 `;
 
 const Logo = styled.Image`
-height: 280px;
-width: 280px;
+height: 350px;
+width: 350px;
 `;
