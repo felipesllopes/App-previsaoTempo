@@ -52,8 +52,8 @@ https://github.com/felipesllopes/App-previsaoTempo/assets/99768939/b0aa4032-24c6
 
 <br/>
 
-### OBS ❗❗❗❗❗
-The data (latitude and longitude) is being passed correctly, but the returned data is wrong.
+### OBS ❗❗
+The data (latitude and longitude) is being passed correctly, but the data returned by the API is wrong.
 
 <br/>
 
