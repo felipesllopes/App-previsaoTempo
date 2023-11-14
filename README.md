@@ -3,7 +3,7 @@
 ### About
 This application has the function of showing the current weather forecast, with temperature, date, wind, humidity, etc., in addition to providing information about the forecast for the next 5 days, with an interval of 3 hours.
 
-<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/99768939/255343072-1898062b-d4f7-4a9d-bf0c-0bcf4341ddb1.png" height=700 width=700 alt="Post App"/>
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/99768939/255343072-1898062b-d4f7-4a9d-bf0c-0bcf4341ddb1.png" height=500 width=500 alt="Post App"/>
 
 <br/>
 
